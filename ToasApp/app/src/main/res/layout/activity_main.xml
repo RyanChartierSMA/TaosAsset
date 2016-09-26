@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:scaleType="fitXY"
-        android:layout_weight = "37"
+        android:layout_weight = "45"
         />
 
     <ImageView
@@ -50,7 +50,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:text="Place"
+        android:text="QR Code Look-up"
         android:id="@+id/bt2"
         android:textAllCaps="false"
         android:enabled="false"
@@ -61,15 +61,7 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
         />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:text = "Place"
-        android:id="@+id/bt3"
-        android:textAllCaps="false"
-        android:layout_weight = "13"
-        android:enabled="false"
-        />
+
 
     <Space
         android:layout_height="0px"

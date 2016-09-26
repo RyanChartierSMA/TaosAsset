@@ -1,5 +1,6 @@
 package com.example.rac.toasapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -24,7 +25,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //initialize buttons
         troubleShootbtn = (Button)findViewById(R.id.trouble);
         bt2 = (Button)findViewById(R.id.bt2);
-        bt3 = (Button)findViewById(R.id.bt3);
+
+        //Assign the listeners to each button
+        troubleShootbtn.setOnClickListener(this);
 
     }
 
@@ -34,8 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button pressedButton = (Button)v;
         switch(pressedButton.getText().toString()){
 
-            case "TroubleShoot":
+            case "Troubleshoot":
                 //Open the next window - start new intent
+                Intent assetSelectionWindow = new Intent(MainActivity.this, AssetSelection.class);
+                startActivity(assetSelectionWindow);
                 break;
 
         }
