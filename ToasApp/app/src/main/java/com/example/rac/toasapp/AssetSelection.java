@@ -31,8 +31,22 @@ public class AssetSelection extends AppCompatActivity {
     }
 
     private void populateLayout()
-    //for each index in the array, create a button and add it to the layout.
+    //make an asset, then create an assetflowchart, create questions and assing them, then assigned flowchart to asset
     {
+        Asset foam = new Asset();
+        foam.setAssetName("Tank");
+        foam.setAssetDesc("A tank that holds fluids");
+        foam.setExpectedLife(5.5);
+        foam.setCost(5000);
+        foam.setAge(5.8);
 
+        AssetFlowChart temp = new AssetFlowChart();//temp one to populate
+        //set the questions to each index
+
+        Question tempQ = new Question();
+
+        //add the question as index 0 of the temp flowchart, then when all are done, set the flowchart
+        //as the flowchart for the asset.
+        //TODO: create flowcharts, with indices, to translate into the array.
     }
 }

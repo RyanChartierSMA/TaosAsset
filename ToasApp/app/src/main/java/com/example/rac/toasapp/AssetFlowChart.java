@@ -6,10 +6,12 @@ package com.example.rac.toasapp;
 
 public class AssetFlowChart {
 
-    /*The flowchart contains an array of questions and a current question. The flow chart can load
-    in the nextyes, nextno, and previous option as well as navigating to the first node.
 
-    */
+
+    /*The flowchart contains an array of questions and a current question. The flow chart can load
+        in the nextyes, nextno, and previous option as well as navigating to the first node.
+
+        */
     private Question flowchart[]= new Question[99];
     int currentIndex = 0;
     private Question currentQuestion = flowchart[currentIndex];
@@ -44,4 +46,31 @@ public class AssetFlowChart {
         currentIndex = 0;
         currentQuestion = flowchart[0];
     }
+
+
+    public Question[] getFlowchart() {
+        return flowchart;
+    }
+
+    public void setFlowchart(Question[] flowchart) {
+        this.flowchart = flowchart;
+    }
+
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
+    }
+
+    public Question getCurrentQuestion() {
+        return currentQuestion;
+    }
+
+    public void setCurrentQuestion(Question currentQuestion) {
+        this.currentQuestion = currentQuestion;
+    }
+
+
 }

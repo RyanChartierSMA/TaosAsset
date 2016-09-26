@@ -14,8 +14,6 @@ public class Question
     private int nextYes, nextNo, previous;
     private String questionText;
 
-
-
     public void setImage(ImageView image) {
         this.image = image;
     }
