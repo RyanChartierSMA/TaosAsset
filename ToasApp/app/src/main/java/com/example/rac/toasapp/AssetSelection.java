@@ -1,12 +1,20 @@
 package com.example.rac.toasapp;
 
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import static com.example.rac.toasapp.R.drawable.logo;
 
 public class AssetSelection extends AppCompatActivity {
     /*the aim of this class is to populate a list based on the assets we have.
@@ -23,8 +31,16 @@ public class AssetSelection extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*
         buttonHolder = (LinearLayout)findViewById(R.id.buttonLayout);
+        Button test = new Button(this);
+        test.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT ));
+        test.setText("Poke");
+        buttonHolder.addView(test);
         //maps it so i can add buttons to it dynamically
+
+        //this allows for adding buttons dynamically
+        */
 
         populateLayout();
 
@@ -52,11 +68,13 @@ public class AssetSelection extends AppCompatActivity {
         tempQ.setOp3(3);//Dark brown, thick and scummt
         tempQ.setOp4(4);//bilowy, white
 
-        tempQ.setImage(R.drawable.logo);
+
+        tempQ.image = new ImageView(this);
+        tempQ.image.setImageResource(R.drawable.logo);
 
         tempQ.setPrevious(-1);//at the start
 
-        temp[1] = tempQ;
+        temp.assignIndex(0, tempQ);*/
 
         //add the question as index 0 of the temp flowchart, then when all are done, set the flowchart
         //as the flowchart for the asset.

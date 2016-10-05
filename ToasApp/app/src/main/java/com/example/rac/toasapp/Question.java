@@ -1,6 +1,7 @@
 package com.example.rac.toasapp;
 
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.widget.ImageView;
 
 /**
@@ -11,7 +12,7 @@ public class Question
 //This class will serve as a question per index of the flowchart.
 {
 
-    private ImageView image;
+    public ImageView image;
 
     private int op1;
     private int op2;
@@ -73,9 +74,6 @@ public class Question
 
     private String questionText;
 
-    public void setImage(int picture) {
-        image.setImageResource(picture);
-    }
 
     public void setPrevious(int previous) {
         this.previous = previous;
