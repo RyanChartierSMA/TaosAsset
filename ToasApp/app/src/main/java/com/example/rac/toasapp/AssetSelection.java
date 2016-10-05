@@ -28,8 +28,7 @@ public class AssetSelection extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_asset_selection);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         /*
         buttonHolder = (LinearLayout)findViewById(R.id.buttonLayout);
@@ -43,6 +42,10 @@ public class AssetSelection extends AppCompatActivity {
         */
 
         populateLayout();
+
+        int currentIndex = 0;
+
+
 
     }
 
@@ -67,6 +70,7 @@ public class AssetSelection extends AppCompatActivity {
         tempQ.setOp2(2);//grey, thick slimmy
         tempQ.setOp3(3);//Dark brown, thick and scummt
         tempQ.setOp4(4);//bilowy, white
+        tempQ.setOptionNums(4);
 
 
         tempQ.image = new ImageView(this);
@@ -74,7 +78,7 @@ public class AssetSelection extends AppCompatActivity {
 
         tempQ.setPrevious(-1);//at the start
 
-        temp.assignIndex(0, tempQ);*/
+        temp.assignIndex(0, tempQ);
 
         //add the question as index 0 of the temp flowchart, then when all are done, set the flowchart
         //as the flowchart for the asset.

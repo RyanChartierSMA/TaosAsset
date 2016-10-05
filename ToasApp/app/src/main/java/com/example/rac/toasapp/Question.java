@@ -14,6 +14,7 @@ public class Question
 
     public ImageView image;
 
+    private int optionNums = 0;
     private int op1;
     private int op2;
     private int op3;
@@ -21,6 +22,14 @@ public class Question
     private int op5;
     private int op6;
     private int previous;
+
+    public int getOptionNums() {
+        return optionNums;
+    }
+
+    public void setOptionNums(int optionNums) {
+        this.optionNums = optionNums;
+    }
 
     public int getOp1() {
         return op1;
