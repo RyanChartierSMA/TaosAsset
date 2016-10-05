@@ -17,22 +17,53 @@ public class AssetFlowChart {
     private Question currentQuestion = flowchart[currentIndex];
     //an array of questions.
 
-    private void loadnextYes()
+    private void loadOp1()
     {
         //sets the current index to the nextYes of the current question
-        currentIndex = currentQuestion.getNextYes();
+        currentIndex = currentQuestion.getOp1();
         //loads in the new question from the above
         currentQuestion = flowchart[currentIndex];
     }
 
-    private void loadnextNo()
+    private void loadOp2()
     {
         //sets the current index to the nextNo of the current question
-        currentIndex = currentQuestion.getNextNo();
+        currentIndex = currentQuestion.getOp2();
         //loads in the new question from the above
         currentQuestion = flowchart[currentIndex];
     }
 
+    private void loadOp3()
+    {
+        //sets the current index to the nextNo of the current question
+        currentIndex = currentQuestion.getOp3();
+        //loads in the new question from the above
+        currentQuestion = flowchart[currentIndex];
+    }
+
+    private void loadOp4()
+    {
+        //sets the current index to the nextNo of the current question
+        currentIndex = currentQuestion.getOp4();
+        //loads in the new question from the above
+        currentQuestion = flowchart[currentIndex];
+    }
+
+    private void loadOp5()
+    {
+        //sets the current index to the nextNo of the current question
+        currentIndex = currentQuestion.getOp5();
+        //loads in the new question from the above
+        currentQuestion = flowchart[currentIndex];
+    }
+
+    private void loadOp6()
+    {
+        //sets the current index to the nextNo of the current question
+        currentIndex = currentQuestion.getOp6();
+        //loads in the new question from the above
+        currentQuestion = flowchart[currentIndex];
+    }
     private void loadPrevious()
     {
         //sets the current index to the previous of the current question
@@ -72,5 +103,9 @@ public class AssetFlowChart {
         this.currentQuestion = currentQuestion;
     }
 
+    public void assignIndex(int index, Question q)
+    {
+        flowchart[index] = q;
+    }
 
 }
