@@ -19,9 +19,10 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     int currentOptionNum = 4;
     int currentIndex = 0;
     Question[] masterChart;
-    final int weightOfButtons = 70;
-    //image, textview, and one space take up 40.
-    float weightPerButton = 0.0f;
+
+    final int weightOfButtons = 70;//used to make buttons fit nicer.
+    //image, textview, and one space take up 30.
+    float weightPerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,6 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
         populateChart();
         drawButtons();//called after each button click, but here to force an initial draw
-
 
     }
 
@@ -173,6 +173,61 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         {
             case 1://load the index of the current's option 1 value
                 currentIndex = masterChart[currentIndex].getOp1();
+                removeButtons();
+                currentOptionNum = masterChart[currentIndex].getOptionNums();
+                weightPerButton = weightOfButtons/currentOptionNum;
+                drawButtons();//reloads the screen
+                break;
+
+            case 2:
+                currentIndex = masterChart[currentIndex].getOp2();
+                removeButtons();
+                currentOptionNum = masterChart[currentIndex].getOptionNums();
+                weightPerButton = weightOfButtons/currentOptionNum;
+                drawButtons();//reloads the screen
+                break;
+
+            case 3:
+                currentIndex = masterChart[currentIndex].getOp3();
+                removeButtons();
+                currentOptionNum = masterChart[currentIndex].getOptionNums();
+                weightPerButton = weightOfButtons/currentOptionNum;
+                drawButtons();//reloads the screen
+                break;
+            case 4:
+                currentIndex = masterChart[currentIndex].getOp4();
+                removeButtons();
+                currentOptionNum = masterChart[currentIndex].getOptionNums();
+                weightPerButton = weightOfButtons/currentOptionNum;
+                drawButtons();//reloads the screen
+                break;
+
+            case 5:
+                currentIndex = masterChart[currentIndex].getOp5();
+                removeButtons();
+                currentOptionNum = masterChart[currentIndex].getOptionNums();
+                weightPerButton = weightOfButtons/currentOptionNum;
+                drawButtons();//reloads the screen
+                break;
+
+            case 6:
+                currentIndex = masterChart[currentIndex].getOp6();
+                removeButtons();
+                currentOptionNum = masterChart[currentIndex].getOptionNums();
+                weightPerButton = weightOfButtons/currentOptionNum;
+                drawButtons();//reloads the screen
+                break;
+
+            case 7:
+                currentIndex = masterChart[currentIndex].getOp7();
+                removeButtons();
+                currentOptionNum = masterChart[currentIndex].getOptionNums();
+                weightPerButton = weightOfButtons/currentOptionNum;
+                drawButtons();//reloads the screen
+                break;
+
+            case 8:
+                currentIndex = masterChart[currentIndex].getOp8();
                 removeButtons();
                 currentOptionNum = masterChart[currentIndex].getOptionNums();
                 weightPerButton = weightOfButtons/currentOptionNum;

@@ -21,13 +21,35 @@ public class Question
     private int op4;
     private int op5;
     private int op6;
+    private int op7;
+    private int op8;
+
     private int previous;
+
     String button1Text;
     String button2Text;
     String button3Text;
     String button4Text;
     String button5Text;
     String button6Text;
+
+    public int getOp7() {
+        return op7;
+    }
+
+    public void setOp7(int op7) {
+        this.op7 = op7;
+    }
+
+    public int getOp8() {
+        return op8;
+    }
+
+    public void setOp8(int op8) {
+        this.op8 = op8;
+    }
+
+
 
     public String getButton7Text() {
         return button7Text;
