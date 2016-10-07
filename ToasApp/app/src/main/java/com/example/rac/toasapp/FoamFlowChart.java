@@ -2,6 +2,7 @@ package com.example.rac.toasapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -11,19 +12,21 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     /*the aim of this class is to populate a list based on the assets we have.
     Use a local database to load this information
     An array will do fine for now.
+    Can support up to 8 options per question
     */
     //layout that will link to xml layout to add buttons
     LinearLayout buttonHolder;
     int currentOptionNum = 4;
     int currentIndex = 0;
     Question[] masterChart;
+    final int weightOfButtons = 70;
+    //image, textview, and one space take up 40.
+    float weightPerButton = 0.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_asset_selection);
-
-
 
         buttonHolder = (LinearLayout)findViewById(R.id.buttonLayout);
         /*
@@ -105,19 +108,9 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     {
         //update the current index
 
-
-
-
-
-
-
-
-
-
-
-
-
         String key = "op";
+        weightPerButton = weightOfButtons/ currentOptionNum;
+        //assigns the buttons an equal weight, cumulative to 60.
         for( int i = 1; i <= currentOptionNum; i++)//for all available options, start at op1
         {
             Button test = new Button(this);
@@ -164,7 +157,10 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
             test.setOnClickListener(this);
             //all the neccessary layout-adding stuff. It adds the button to the layout.
-            test.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT ));
+            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0 );
+            p.weight = weightPerButton;
+            test.setLayoutParams(p);
+
             buttonHolder.addView(test);
         }
 
@@ -179,6 +175,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
                 currentIndex = masterChart[currentIndex].getOp1();
                 removeButtons();
                 currentOptionNum = masterChart[currentIndex].getOptionNums();
+                weightPerButton = weightOfButtons/currentOptionNum;
                 drawButtons();//reloads the screen
                 break;
         }
