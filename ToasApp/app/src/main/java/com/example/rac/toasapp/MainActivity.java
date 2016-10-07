@@ -3,11 +3,8 @@ package com.example.rac.toasapp;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -39,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case "Troubleshoot":
                 //Open the next window - start new intent
-                Intent assetSelectionWindow = new Intent(MainActivity.this, AssetSelection.class);
+                Intent assetSelectionWindow = new Intent(MainActivity.this, FoamFlowChart.class);
                 startActivity(assetSelectionWindow);
                 break;
 

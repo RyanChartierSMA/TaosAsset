@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AssetSelection"
+            android:name=".FoamFlowChart"
             android:label="@string/title_activity_asset_selection"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

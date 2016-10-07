@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 
 import static com.example.rac.toasapp.R.drawable.logo;
 
-public class AssetSelection extends AppCompatActivity {
+public class FoamFlowChart extends AppCompatActivity implements View.OnClickListener {
     /*the aim of this class is to populate a list based on the assets we have.
     Use a local database to load this information
     An array will do fine for now.
@@ -25,6 +25,7 @@ public class AssetSelection extends AppCompatActivity {
     LinearLayout buttonHolder;
     int currentOptionNum = 0;
     int currentIndex = 0;
+    Question[] masterChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,22 +52,17 @@ public class AssetSelection extends AppCompatActivity {
     }
 
     private void populateLayout()
-    //make an asset, then create an assetflowchart, create questions and assing them, then assigned flowchart to asset
+    //This function creates the flowchart for all assets
+    //create each step in the flowchart and add it to the foam chart array
     {
-        Asset tank = new Asset();
-        tank.setAge(6);// years
-        tank.setCost(5000); //cost per year
-        tank.setExpectedLife(5);// years
-        tank.setAssetDesc("A tank that holds stuff. In this case, sludge");
-
-        //The tank is created, now create the sludge problem it may have.
-
-        AssetFlowChart temp = new AssetFlowChart();//temp one to populate
+        masterChart = new Question[100];//chart one to populate
         //set the questions to each index
 
         Question tempQ = new Question(); //for index 0
+
         tempQ.setQuestionText("Is there excess foam?");
-        //set the 4 possible options
+
+        //set the 4 possible options, they link to an index on the chart.
         tempQ.setOp1(1);//pumice-like
         tempQ.setOp2(2);//grey, thick slimmy
         tempQ.setOp3(3);//Dark brown, thick and scummt
@@ -74,14 +70,13 @@ public class AssetSelection extends AppCompatActivity {
         tempQ.setOptionNums(4);
 
         tempQ.image = new ImageView(this);
-        tempQ.image.setImageResource(R.drawable.logo);
+        tempQ.image.setImageResource(R.drawable.logo);//put a picture
 
         tempQ.setPrevious(-1);//at the start
-        //first one, so assign it as first
-        currentIndex = 0;
+
         currentOptionNum = tempQ.getOptionNums();
 
-        temp.assignIndex(0, tempQ);//add it to index 0 of chart
+        masterChart[0] = tempQ;//add it to index 0 of the chart
 
         //add the question as index 0 of the temp flowchart, then when all are done, set the flowchart
         //as the flowchart for the asset.
@@ -121,10 +116,27 @@ public class AssetSelection extends AppCompatActivity {
                     break;
             }
 
+            test.setOnClickListener(this);
             test.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT ));
             test.setText(tempName);
             buttonHolder.addView(test);
         }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch(v.getId())
+        {
+            case 1:
+                break;
+        }
+    }
+
+    //loads in the index specified
+    private void loadIndex(int index)
+    {
 
     }
 }
