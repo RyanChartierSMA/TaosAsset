@@ -23,6 +23,8 @@ public class AssetSelection extends AppCompatActivity {
     */
     //layout that will link to xml layout to add buttons
     LinearLayout buttonHolder;
+    int currentOptionNum = 0;
+    int currentIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +32,9 @@ public class AssetSelection extends AppCompatActivity {
         setContentView(R.layout.activity_asset_selection);
 
 
-        /*
+
         buttonHolder = (LinearLayout)findViewById(R.id.buttonLayout);
+        /*
         Button test = new Button(this);
         test.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT ));
         test.setText("Poke");
@@ -42,9 +45,7 @@ public class AssetSelection extends AppCompatActivity {
         */
 
         populateLayout();
-
-        int currentIndex = 0;
-
+        drawButtons();
 
 
     }
@@ -72,16 +73,58 @@ public class AssetSelection extends AppCompatActivity {
         tempQ.setOp4(4);//bilowy, white
         tempQ.setOptionNums(4);
 
-
         tempQ.image = new ImageView(this);
         tempQ.image.setImageResource(R.drawable.logo);
 
         tempQ.setPrevious(-1);//at the start
+        //first one, so assign it as first
+        currentIndex = 0;
+        currentOptionNum = tempQ.getOptionNums();
 
-        temp.assignIndex(0, tempQ);
+        temp.assignIndex(0, tempQ);//add it to index 0 of chart
 
         //add the question as index 0 of the temp flowchart, then when all are done, set the flowchart
         //as the flowchart for the asset.
         //TODO: create flowcharts, with indices, to translate into the array.
+    }
+
+    //this function will draw buttons to the screen depending on the number of options of the current question,
+    //but for now it is going to draw the first question.
+    private void drawButtons()
+    {
+        String key = "op";
+        for( int i = 1; i <= currentOptionNum; i++)//for all available options, start at op1
+        {
+            Button test = new Button(this);
+            String tempName = key + i;
+
+            //assigns an id to the button depending on which button is created
+            switch (tempName)
+            {
+                case "op1":
+                    test.setId(1);
+                    break;
+                case "op2":
+                    test.setId(2);
+                    break;
+                case "op3":
+                    test.setId(3);
+                    break;
+                case "op4":
+                    test.setId(4);
+                    break;
+                case "op5":
+                    test.setId(5);
+                    break;
+                case "op6":
+                    test.setId(6);
+                    break;
+            }
+
+            test.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT ));
+            test.setText(tempName);
+            buttonHolder.addView(test);
+        }
+
     }
 }

@@ -40,7 +40,7 @@
             android:text="This is a test message to see how text looks in the app."
             android:layout_weight = "17"/>
 
-        <Button
+       <!-- <Button
             android:layout_width="match_parent"
             android:layout_height="0px"
             android:text="Button 1"
@@ -99,6 +99,6 @@
             android:layout_weight = "10"
             />
 
-
+-->
     </LinearLayout>
 </ScrollView>
