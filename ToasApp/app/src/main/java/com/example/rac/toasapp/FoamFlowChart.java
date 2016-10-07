@@ -1,20 +1,11 @@
 package com.example.rac.toasapp;
 
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import static com.example.rac.toasapp.R.drawable.logo;
 
 public class FoamFlowChart extends AppCompatActivity implements View.OnClickListener {
     /*the aim of this class is to populate a list based on the assets we have.
@@ -23,7 +14,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     */
     //layout that will link to xml layout to add buttons
     LinearLayout buttonHolder;
-    int currentOptionNum = 0;
+    int currentOptionNum = 4;
     int currentIndex = 0;
     Question[] masterChart;
 
@@ -45,13 +36,13 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         //this allows for adding buttons dynamically
         */
 
-        populateLayout();
-        drawButtons();
+        populateChart();
+        drawButtons();//called after each button click, but here to force an initial draw
 
 
     }
 
-    private void populateLayout()
+    private void populateChart()
     //This function creates the flowchart for all assets
     //create each step in the flowchart and add it to the foam chart array
     {
@@ -64,9 +55,13 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
         //set the 4 possible options, they link to an index on the chart.
         tempQ.setOp1(1);//pumice-like
+        tempQ.setButton1Text("pumice-like");
         tempQ.setOp2(2);//grey, thick slimmy
+        tempQ.setButton2Text("thick, slimmy");
         tempQ.setOp3(3);//Dark brown, thick and scummt
+        tempQ.setButton3Text("Dark brown, thick and scummy");
         tempQ.setOp4(4);//bilowy, white
+        tempQ.setButton4Text("bilowy, white");
         tempQ.setOptionNums(4);
 
         tempQ.image = new ImageView(this);
@@ -74,9 +69,29 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
         tempQ.setPrevious(-1);//at the start
 
-        currentOptionNum = tempQ.getOptionNums();
 
         masterChart[0] = tempQ;//add it to index 0 of the chart
+
+        tempQ.setQuestionText("This is the result of clicking option 1");
+
+        tempQ = new Question();
+        //set the 4 possible options, they link to an index on the chart.
+        tempQ.setOp1(0);//pumice-like
+        tempQ.setButton1Text("go back");
+        tempQ.setOp2(0);//grey, thick slimmy
+        tempQ.setButton2Text("go back");
+        tempQ.setOp3(0);//Dark brown, thick and scummt
+        tempQ.setButton3Text("go back");
+        tempQ.setOp4(0);//bilowy, white
+        tempQ.setButton4Text("go back");
+        tempQ.setOptionNums(8);
+
+        tempQ.image = new ImageView(this);
+        tempQ.image.setImageResource(R.drawable.logo);//put a picture
+
+        tempQ.setPrevious(0);//at the start
+
+        masterChart[1] = tempQ;//add it to index 0 of the chart
 
         //add the question as index 0 of the temp flowchart, then when all are done, set the flowchart
         //as the flowchart for the asset.
@@ -85,40 +100,71 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
     //this function will draw buttons to the screen depending on the number of options of the current question,
     //but for now it is going to draw the first question.
+    //this function gets called after each option click
     private void drawButtons()
     {
+        //update the current index
+
+
+
+
+
+
+
+
+
+
+
+
+
         String key = "op";
         for( int i = 1; i <= currentOptionNum; i++)//for all available options, start at op1
         {
             Button test = new Button(this);
+            test.setAllCaps(false);
             String tempName = key + i;
 
             //assigns an id to the button depending on which button is created
+            //and assigns the text to the appropiate button text
             switch (tempName)
             {
                 case "op1":
                     test.setId(1);
+                    test.setText(masterChart[currentIndex].getButton1Text());
                     break;
                 case "op2":
                     test.setId(2);
+                    test.setText(masterChart[currentIndex].getButton2Text());
                     break;
                 case "op3":
                     test.setId(3);
+                    test.setText(masterChart[currentIndex].getButton3Text());
                     break;
                 case "op4":
                     test.setId(4);
+                    test.setText(masterChart[currentIndex].getButton4Text());
                     break;
                 case "op5":
                     test.setId(5);
+                    test.setText(masterChart[currentIndex].getButton5Text());
                     break;
                 case "op6":
                     test.setId(6);
+                    test.setText(masterChart[currentIndex].getButton6Text());
+                    break;
+                case "op7":
+                    test.setId(7);
+                    test.setText(masterChart[currentIndex].getButton7Text());
+                    break;
+                case "op8":
+                    test.setId(8);
+                    test.setText(masterChart[currentIndex].getButton8Text());
                     break;
             }
 
             test.setOnClickListener(this);
+            //all the neccessary layout-adding stuff. It adds the button to the layout.
             test.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT ));
-            test.setText(tempName);
             buttonHolder.addView(test);
         }
 
@@ -129,7 +175,11 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
         switch(v.getId())
         {
-            case 1:
+            case 1://load the index of the current's option 1 value
+                currentIndex = masterChart[currentIndex].getOp1();
+                removeButtons();
+                currentOptionNum = masterChart[currentIndex].getOptionNums();
+                drawButtons();//reloads the screen
                 break;
         }
     }
@@ -138,5 +188,15 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     private void loadIndex(int index)
     {
 
+    }
+
+    //this function will update the screen to the current index's items
+    private void removeButtons()
+    {
+        for( int i = 1; i <= currentOptionNum; i++)//for all available options, start at op1, destroy buttons
+        {
+            buttonHolder.removeView(findViewById(i));
+
+        }
     }
 }

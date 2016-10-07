@@ -22,6 +22,81 @@ public class Question
     private int op5;
     private int op6;
     private int previous;
+    String button1Text;
+    String button2Text;
+    String button3Text;
+    String button4Text;
+    String button5Text;
+    String button6Text;
+
+    public String getButton7Text() {
+        return button7Text;
+    }
+
+    public void setButton7Text(String button7Text) {
+        this.button7Text = button7Text;
+    }
+
+    public String getButton8Text() {
+        return button8Text;
+    }
+
+    public void setButton8Text(String button8Text) {
+        this.button8Text = button8Text;
+    }
+
+    String button7Text;
+    String button8Text;
+
+    public String getButton6Text() {
+        return button6Text;
+    }
+
+    public void setButton6Text(String button6Text) {
+        this.button6Text = button6Text;
+    }
+
+    public String getButton1Text() {
+        return button1Text;
+    }
+
+    public void setButton1Text(String button1Text) {
+        this.button1Text = button1Text;
+    }
+
+    public String getButton2Text() {
+        return button2Text;
+    }
+
+    public void setButton2Text(String button2Text) {
+        this.button2Text = button2Text;
+    }
+
+    public String getButton3Text() {
+        return button3Text;
+    }
+
+    public void setButton3Text(String button3Text) {
+        this.button3Text = button3Text;
+    }
+
+    public String getButton4Text() {
+        return button4Text;
+    }
+
+    public void setButton4Text(String button4Text) {
+        this.button4Text = button4Text;
+    }
+
+    public String getButton5Text() {
+        return button5Text;
+    }
+
+    public void setButton5Text(String button5Text) {
+        this.button5Text = button5Text;
+    }
+
+
 
     public int getOptionNums() {
         return optionNums;
