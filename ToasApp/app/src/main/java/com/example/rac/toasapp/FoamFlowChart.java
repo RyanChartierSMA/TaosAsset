@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_asset_selection);
 
         buttonHolder = (LinearLayout)findViewById(R.id.buttonLayout);
+
         /*
         Button test = new Button(this);
         test.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT ));
@@ -54,19 +56,25 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         masterChart = new Question[100];//chart one to populate
         //set the questions to each index
 
-        Question tempQ = new Question(); //for index 0
+        Question tempQ = new Question(); //for index
 //------------------------------------------------------------ Setup index 0
         tempQ.setQuestionText("Is there excess foam?");
 
         //set the 4 possible options, they link to an index on the chart.
+        //set images by id
         tempQ.setOp1(1);//pumice-like
+        //add button image.
+        tempQ.setOp1Image(R.drawable.pmcbtn);
         tempQ.setButton1Text("pumice-like");
         tempQ.setOp2(2);//grey, thick slimmy
+        tempQ.setOp2bImage(R.drawable.slmybtn);
         tempQ.setButton2Text("thick, slimmy");
         tempQ.setOp3(3);//Dark brown, thick and scummt
         tempQ.setButton3Text("Dark brown, thick and scummy");
+        tempQ.setOp3bImage(R.drawable.dkbrnthkbtn);
         tempQ.setOp4(4);//bilowy, white
         tempQ.setButton4Text("bilowy, white");
+        tempQ.setOp4bImage(R.drawable.whtblybtn);
         tempQ.setOptionNums(4);
 
         tempQ.image = new ImageView(this);
@@ -84,6 +92,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         tempQ.setOp1(-2);
         tempQ.setButton1Text("");
         tempQ.setOp2(-2);
+        tempQ.setOp2bImage(R.drawable.logo);
         tempQ.setButton2Text("");
         tempQ.setOp3(-2);
         tempQ.setButton3Text("");
@@ -99,22 +108,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
 //-------------------------------------------------------------Setup index 2
 
-        tempQ = new Question();
-        tempQ.setOp1(0);
-        tempQ.setButton1Text("");
-        tempQ.setOp2(0);
-        tempQ.setButton2Text("");
-        tempQ.setOp3(0);
-        tempQ.setButton3Text("");
-        tempQ.setOp4(0);
-        tempQ.setButton4Text("");
-        tempQ.setOptionNums(4);
-        tempQ.setPrevious(0);//at the start
 
-        tempQ.image = new ImageView(this);
-        tempQ.image.setImageResource(R.drawable.logo);//put a picture
-
-        masterChart[1] = tempQ;//add it to index 0 of the chart
         //add the question as index 0 of the temp flowchart, then when all are done, set the flowchart
         //as the flowchart for the asset.
         //TODO: create flowcharts, with indices, to translate into the array.
@@ -139,8 +133,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         for( int i = 1; i <= currentOptionNum; i++)//for all available options, start at op1
         {
             boolean enabledButton = true;//used for enable/disable button based on -2 index
-            Button test = new Button(this);
-            test.setAllCaps(false);
+            ImageButton test = new ImageButton(this);
             String tempName = key + i;
 
             //assigns an id to the button depending on which button is created
@@ -148,44 +141,50 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
             switch (tempName)
             {
                 case "op1":
+                    //test = masterChart[currentIndex].getOp1b();
+                    test.setImageResource(masterChart[currentIndex].getOp1Image());
                     test.setId(1);
-                    test.setText(masterChart[currentIndex].getButton1Text());
+                    //test.setText(masterChart[currentIndex].getButton1Text());
                     if(masterChart[currentIndex].getOp1() == -2)
                         enabledButton = false;
                     break;
                 case "op2":
+                    test.setImageResource(masterChart[currentIndex].getOp2bImage());
                     test.setId(2);
-                    test.setText(masterChart[currentIndex].getButton2Text());
+                    //test.setText(masterChart[currentIndex].getButton2Text());
                     break;
                 case "op3":
+                    test.setImageResource(masterChart[currentIndex].getOp3bImage());
                     test.setId(3);
-                    test.setText(masterChart[currentIndex].getButton3Text());
+                    //test.setText(masterChart[currentIndex].getButton3Text());
                     break;
                 case "op4":
+                    test.setImageResource(masterChart[currentIndex].getOp4bImage());
                     test.setId(4);
-                    test.setText(masterChart[currentIndex].getButton4Text());
+                   // test.setText(masterChart[currentIndex].getButton4Text());
                     break;
                 case "op5":
                     test.setId(5);
-                    test.setText(masterChart[currentIndex].getButton5Text());
+                    //test.setText(masterChart[currentIndex].getButton5Text());
                     break;
                 case "op6":
                     test.setId(6);
-                    test.setText(masterChart[currentIndex].getButton6Text());
+                    //test.setText(masterChart[currentIndex].getButton6Text());
                     break;
                 case "op7":
                     test.setId(7);
-                    test.setText(masterChart[currentIndex].getButton7Text());
+                    //test.setText(masterChart[currentIndex].getButton7Text());
                     break;
                 case "op8":
                     test.setId(8);
-                    test.setText(masterChart[currentIndex].getButton8Text());
+                    //test.setText(masterChart[currentIndex].getButton8Text());
                     break;
             }
 
             test.setOnClickListener(this);
             //all the neccessary layout-adding stuff. It adds the button to the layout.
             p.weight = weightPerButton;
+
             test.setLayoutParams(p);
             test.setEnabled(enabledButton);
             buttonHolder.addView(test);

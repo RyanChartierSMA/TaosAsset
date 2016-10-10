@@ -1,8 +1,10 @@
 package com.example.rac.toasapp;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 /**
@@ -12,6 +14,7 @@ import android.widget.ImageView;
 public class Question
 //This class will serve as a question per index of the flowchart.
 {
+
 
     public ImageView image;
 
@@ -25,6 +28,19 @@ public class Question
     private int op7;
     private int op8;
 
+
+    //images for buttons
+    private int op1Image;
+    private int op2bImage;
+    private int op3bImage;
+    private int op4bImage;
+    private int op5bImage;
+    private int op6bImage;
+    private int op7bImage;
+    private int op8bImage;
+
+
+
     private int previous;
 
     String button1Text;
@@ -33,6 +49,73 @@ public class Question
     String button4Text;
     String button5Text;
     String button6Text;
+    String button7Text;
+    String button8Text;
+
+    public int getOp1Image() {
+        return op1Image;
+    }
+
+    public void setOp1Image(int op1Image) {
+        this.op1Image = op1Image;
+    }
+
+    public int getOp2bImage() {
+        return op2bImage;
+    }
+
+    public void setOp2bImage(int op2bImage) {
+        this.op2bImage = op2bImage;
+    }
+
+    public int getOp3bImage() {
+        return op3bImage;
+    }
+
+    public void setOp3bImage(int op3bImage) {
+        this.op3bImage = op3bImage;
+    }
+
+    public int getOp4bImage() {
+        return op4bImage;
+    }
+
+    public void setOp4bImage(int op4bImage) {
+        this.op4bImage = op4bImage;
+    }
+
+    public int getOp5bImage() {
+        return op5bImage;
+    }
+
+    public void setOp5bImage(int op5bImage) {
+        this.op5bImage = op5bImage;
+    }
+
+    public int getOp6bImage() {
+        return op6bImage;
+    }
+
+    public void setOp6bImage(int op6bImage) {
+        this.op6bImage = op6bImage;
+    }
+
+    public int getOp7bImage() {
+        return op7bImage;
+    }
+
+    public void setOp7bImage(int op7bImage) {
+        this.op7bImage = op7bImage;
+    }
+
+    public int getOp8bImage() {
+        return op8bImage;
+    }
+
+    public void setOp8bImage(int op8bImage) {
+        this.op8bImage = op8bImage;
+    }
+
 
     public int getOp7() {
         return op7;
@@ -68,8 +151,7 @@ public class Question
         this.button8Text = button8Text;
     }
 
-    String button7Text;
-    String button8Text;
+
 
     public String getButton6Text() {
         return button6Text;
