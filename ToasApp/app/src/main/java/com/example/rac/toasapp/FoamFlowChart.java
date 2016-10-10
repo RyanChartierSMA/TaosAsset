@@ -3,10 +3,12 @@ package com.example.rac.toasapp;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class FoamFlowChart extends AppCompatActivity implements View.OnClickListener {
     /*the aim of this class is to populate a list based on the assets we have.
@@ -19,10 +21,10 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     int currentOptionNum = 4;
     int currentIndex = 0;
     Question[] masterChart;
-
     final int weightOfButtons = 70;//used to make buttons fit nicer.
-    //image, textview, and one space take up 30.
+                                   //image, textview, and one space take up 30.
     float weightPerButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,19 +77,18 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
         masterChart[0] = tempQ;//add it to index 0 of the chart
 
-        tempQ.setQuestionText("This is the result of clicking option 1");
 
         tempQ = new Question();
-        //set the 4 possible options, they link to an index on the chart.
-        tempQ.setOp1(0);//pumice-like
-        tempQ.setButton1Text("go back");
-        tempQ.setOp2(0);//grey, thick slimmy
-        tempQ.setButton2Text("go back");
-        tempQ.setOp3(0);//Dark brown, thick and scummt
-        tempQ.setButton3Text("go back");
-        tempQ.setOp4(0);//bilowy, white
-        tempQ.setButton4Text("go back");
-        tempQ.setOptionNums(8);
+
+        tempQ.setOp1(0);
+        tempQ.setButton1Text("");
+        tempQ.setOp2(0);
+        tempQ.setButton2Text("");
+        tempQ.setOp3(0);
+        tempQ.setButton3Text("");
+        tempQ.setOp4(0);
+        tempQ.setButton4Text("");
+        tempQ.setOptionNums(4);
 
         tempQ.image = new ImageView(this);
         tempQ.image.setImageResource(R.drawable.logo);//put a picture
@@ -104,15 +105,22 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     //this function will draw buttons to the screen depending on the number of options of the current question,
     //but for now it is going to draw the first question.
     //this function gets called after each option click
+    //automated button creation by creating button 1 to i
     private void drawButtons()
     {
-        //update the current index
-
         String key = "op";
+
+        //-----------------------layout stuff----------------------
         weightPerButton = weightOfButtons/ currentOptionNum;
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0 );
+        //----------------------end layout stuff----------------------
+
+
+
         //assigns the buttons an equal weight, cumulative to 60.
         for( int i = 1; i <= currentOptionNum; i++)//for all available options, start at op1
         {
+            boolean enabledButton = true;//used for enable/disable button based on -2 index
             Button test = new Button(this);
             test.setAllCaps(false);
             String tempName = key + i;
@@ -124,6 +132,8 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
                 case "op1":
                     test.setId(1);
                     test.setText(masterChart[currentIndex].getButton1Text());
+                    if(masterChart[currentIndex].getOp1() == -2)
+                        enabledButton = false;
                     break;
                 case "op2":
                     test.setId(2);
@@ -157,17 +167,16 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
             test.setOnClickListener(this);
             //all the neccessary layout-adding stuff. It adds the button to the layout.
-            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0 );
             p.weight = weightPerButton;
             test.setLayoutParams(p);
-
+            test.setEnabled(enabledButton);
             buttonHolder.addView(test);
         }
-
     }
 
     @Override
     public void onClick(View v) {
+
 
         switch(v.getId())
         {
@@ -236,11 +245,6 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    //loads in the index specified
-    private void loadIndex(int index)
-    {
-
-    }
 
     //this function will update the screen to the current index's items
     private void removeButtons()
@@ -251,4 +255,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
         }
     }
+
+
+
 }
