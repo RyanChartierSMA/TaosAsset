@@ -55,7 +55,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         //set the questions to each index
 
         Question tempQ = new Question(); //for index 0
-
+//------------------------------------------------------------ Setup index 0
         tempQ.setQuestionText("Is there excess foam?");
 
         //set the 4 possible options, they link to an index on the chart.
@@ -74,12 +74,32 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
         tempQ.setPrevious(-1);//at the start
 
-
         masterChart[0] = tempQ;//add it to index 0 of the chart
 
+//--------------------------------------------------------------Setup index 1
+
+        tempQ.setQuestionText("Solids return from sludge processing. Try to reduce the solid return by improving the solids capture in sludge processing.");
 
         tempQ = new Question();
+        tempQ.setOp1(-2);
+        tempQ.setButton1Text("");
+        tempQ.setOp2(-2);
+        tempQ.setButton2Text("");
+        tempQ.setOp3(-2);
+        tempQ.setButton3Text("");
+        tempQ.setOp4(-2);
+        tempQ.setButton4Text("");
+        tempQ.setOptionNums(4);
+        tempQ.setPrevious(0);//at the start
 
+        tempQ.image = new ImageView(this);
+        tempQ.image.setImageResource(R.drawable.logo);//put a picture
+
+        masterChart[1] = tempQ;//add it to index 0 of the chart
+
+//-------------------------------------------------------------Setup index 2
+
+        tempQ = new Question();
         tempQ.setOp1(0);
         tempQ.setButton1Text("");
         tempQ.setOp2(0);
@@ -89,14 +109,12 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         tempQ.setOp4(0);
         tempQ.setButton4Text("");
         tempQ.setOptionNums(4);
+        tempQ.setPrevious(0);//at the start
 
         tempQ.image = new ImageView(this);
         tempQ.image.setImageResource(R.drawable.logo);//put a picture
 
-        tempQ.setPrevious(0);//at the start
-
         masterChart[1] = tempQ;//add it to index 0 of the chart
-
         //add the question as index 0 of the temp flowchart, then when all are done, set the flowchart
         //as the flowchart for the asset.
         //TODO: create flowcharts, with indices, to translate into the array.
@@ -180,6 +198,13 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
         switch(v.getId())
         {
+            //case x:
+            //      update to option x of the next index
+            //      remove the buttons from view
+            //      update current number of options
+            //      recalculate weight per button based on number of options
+            //      draw the new buttons, one for each option
+
             case 1://load the index of the current's option 1 value
                 currentIndex = masterChart[currentIndex].getOp1();
                 removeButtons();
