@@ -117,10 +117,10 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     private void drawButtons()
     {
         String key = "op";
-
+        currentOptionNum = masterChart[currentIndex].getOptionNums();
         //-----------------------layout stuff----------------------
         weightPerButton = weightOfButtons/ currentOptionNum;
-        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0 );
+        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,0);
         //----------------------end layout stuff----------------------
 
 
@@ -130,6 +130,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         {
             boolean enabledButton = true;//used for enable/disable button based on -2 index
             ImageButton test = new ImageButton(this);
+            test.setAdjustViewBounds(true);//fixes the image scale bug
             String tempName = key + i;
 
             //assigns an id to the button depending on which button is created
@@ -186,7 +187,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
             test.setOnClickListener(this);
             //all the neccessary layout-adding stuff. It adds the button to the layout.
             p.weight = weightPerButton;
-
+            test.setScaleType(ImageView.ScaleType.FIT_XY);
             test.setLayoutParams(p);
             test.setEnabled(enabledButton);
             buttonHolder.addView(test);
