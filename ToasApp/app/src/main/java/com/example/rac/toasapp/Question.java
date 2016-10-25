@@ -56,7 +56,7 @@ public class Question
         return op1Image;
     }
 
-    public void setOp1Image(int op1Image) {
+    public void setOp1bImage(int op1Image) {
         this.op1Image = op1Image;
     }
 

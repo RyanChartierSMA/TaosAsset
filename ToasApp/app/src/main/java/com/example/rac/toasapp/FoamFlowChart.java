@@ -2,14 +2,10 @@ package com.example.rac.toasapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 public class FoamFlowChart extends AppCompatActivity implements View.OnClickListener {
     /*the aim of this class is to populate a list based on the assets we have.
@@ -24,7 +20,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     Question[] masterChart;
     final int weightOfButtons = 70;//used to make buttons fit nicer.
                                    //image, textview, and one space take up 30.
-    float weightPerButton;
+    float weightPerButton;//assigned during button creation
 
 
     @Override
@@ -64,7 +60,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         //set images by id
         tempQ.setOp1(1);//pumice-like
         //add button image.
-        tempQ.setOp1Image(R.drawable.pmcbtn);
+        tempQ.setOp1bImage(R.drawable.pmcbtn);
         tempQ.setButton1Text("pumice-like");
         tempQ.setOp2(2);//grey, thick slimmy
         tempQ.setOp2bImage(R.drawable.slmybtn);
@@ -138,6 +134,12 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
             //assigns an id to the button depending on which button is created
             //and assigns the text to the appropiate button text
+            /*
+                each question contains an image for op1 -opn buttons. They are loaded below, based
+                on which butotn it is. An id is assigned, 1 to n, for each button. Buttons are
+                destroyed after each click and reloaded, so the ids can be resused.
+            */
+
             switch (tempName)
             {
                 case "op1":
@@ -200,8 +202,8 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
             //case x:
             //      update to option x of the next index
             //      remove the buttons from view
-            //      update current number of options
-            //      recalculate weight per button based on number of options
+            //      update current number of options for button creation purposes
+            //      recalculate weight per button based on new number of options
             //      draw the new buttons, one for each option
 
             case 1://load the index of the current's option 1 value
