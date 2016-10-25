@@ -37,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType = "fitXY"
+            android:id="@+id/description"
             android:text="This is a test message to see how text looks in the app."
             android:layout_weight = "10"/>
 
