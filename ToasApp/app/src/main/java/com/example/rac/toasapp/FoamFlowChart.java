@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TextView;
 
 public class FoamFlowChart extends AppCompatActivity implements View.OnClickListener {
@@ -20,7 +21,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     int currentOptionNum = 4;
     int currentIndex = 0;
     Question[] masterChart;
-    final int weightOfButtons = 70;//used to make buttons fit nicer.
+    final int weightOfButtons = 75;//used to make buttons fit nicer.
                                    //image, textview, and one space take up 30.
     float weightPerButton;//assigned during button creation
 
@@ -55,7 +56,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
         Question tempQ = new Question(); //for index
 //------------------------------------------------------------ Setup index 0
-        tempQ.setQuestionText("Is there excess foam?");
+        tempQ.setQuestionText("Is there excess foam? If so, what does it look like?");
 
         //set the 4 possible options, they link to an index on the chart.
         //set images by id
@@ -123,13 +124,26 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
         //----------------------end layout stuff----------------------
 
+        ImageButton test = new ImageButton(this);
+        //checks for Div/0 error
+        if(currentOptionNum == 0)
+        {
+            weightPerButton = 15;
+        }
+        else
+        {
+            weightPerButton = weightOfButtons/(currentOptionNum +1);//includes go back button
+        }
+
+        p.weight = weightPerButton;
+
 
         if (currentOptionNum != 0) {
             //assigns the buttons an equal weight, cumulative to 60.
             for (int i = 1; i <= currentOptionNum; i++)//for all available options, start at op1
             {
                 boolean enabledButton = true;//used for enable/disable button based on -2 index
-                ImageButton test = new ImageButton(this);
+                test = new ImageButton(this);
                 test.setAdjustViewBounds(true);//fixes the image scale bug
                 String tempName = key + i;
 
@@ -185,35 +199,65 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
                         test.setImageResource(masterChart[currentIndex].getOp8bImage());
                         //test.setText(masterChart[currentIndex].getButton8Text());
                         break;
+
                 }
-                test.setOnClickListener(this);
+
                 //all the neccessary layout-adding stuff. It adds the button to the layout.
-                if(currentOptionNum == 0)
-                {
-                    weightPerButton = 15;
-                }
-                else
-                {
-                    weightPerButton = weightOfButtons/currentOptionNum;
-                }
-                p.weight = weightPerButton;
+
+               // p.weight = weightPerButton;
                 test.setScaleType(ImageView.ScaleType.FIT_XY);
                 test.setLayoutParams(p);
                 test.setEnabled(enabledButton);
+                test.setOnClickListener(this);
                 buttonHolder.addView(test);
             }
 
         }
         else { //there are no buttons to draw, this is the end of the chart. Create a restart button.
 
-            ImageButton test = new ImageButton(this);
+            //create a space so it will force the buttons to be smaller and not oversized.
+            Space sp = new Space(this);
+            sp.setId(300);
+            p.weight *= 2;//scale it up to force butons down
+            sp.setLayoutParams(p);
+            buttonHolder.addView(sp);
+
+            test = new ImageButton(this);
+            p.weight = 10;
+            test.setId(100);//cannot be negative, so be high
             test.setAdjustViewBounds(true);//fixes the image scale bug
             test.setScaleType(ImageView.ScaleType.FIT_XY);
             test.setLayoutParams(p);
             test.setImageResource(R.drawable.restartbutton);
+            test.setOnClickListener(this);
             buttonHolder.addView(test);
         }
+        //insert a space here for formatting niceness, only if there are options.
+        //inserting when back/prev are there will make it look awkard.
+        if(currentOptionNum !=0 ) {
+            Space sp = new Space(this);
+            sp.setId(300);
+            sp.setLayoutParams(p);
+            buttonHolder.addView(sp);
+        }
 
+        //---- Regardless of options, create a back button.
+        p.weight = weightPerButton;
+        test = new ImageButton(this);//reset button data
+        test.setId(200);//cannot be negative, so be high
+        test.setAdjustViewBounds(true);//fixes the image scale bug
+        test.setScaleType(ImageView.ScaleType.FIT_XY);
+        test.setLayoutParams(p);
+        test.setImageResource(R.drawable.backbtn);
+        test.setOnClickListener(this);
+        //if we are at the start already...
+        if(masterChart[currentIndex].getPrevious() < 0)
+        {
+            test.setEnabled(false);
+        }
+        buttonHolder.addView(test);
+
+        //----End back button creation
         updateDesc(currentIndex);
     }
     private void updateDesc(int index)
@@ -288,6 +332,12 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
                 currentOptionNum = masterChart[currentIndex].getOptionNums();
                 drawButtons();//reloads the screen
                 break;
+            case 200://back button
+                currentIndex = masterChart[currentIndex].getPrevious();
+                removeButtons();
+                currentOptionNum = masterChart[currentIndex].getOptionNums();
+                drawButtons();
+                break;
         }
     }
 
@@ -295,6 +345,12 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     //this function will update the screen to the current index's items
     private void removeButtons()
     {
+        //-----begin manual button removal----
+        buttonHolder.removeView(findViewById(100));//previous button
+        buttonHolder.removeView(findViewById(200));//back button
+        buttonHolder.removeView(findViewById(300));//space between prev button and back button
+
+        //----begin automated button removal for automated buttons
         for( int i = 1; i <= currentOptionNum; i++)//for all available options, start at op1, destroy buttons
         {
             buttonHolder.removeView(findViewById(i));
