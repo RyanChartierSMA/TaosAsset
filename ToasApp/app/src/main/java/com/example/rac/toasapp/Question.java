@@ -15,9 +15,6 @@ public class Question
 //This class will serve as a question per index of the flowchart.
 {
 
-
-    public ImageView image;
-
     private int optionNums = 0;
     private int op1;
     private int op2;
@@ -38,6 +35,8 @@ public class Question
     private int op6bImage;
     private int op7bImage;
     private int op8bImage;
+
+    private int headerImage;
 
 
 
@@ -272,9 +271,11 @@ public class Question
         this.questionText = questionText;
     }
 
-    public ImageView getImage() {
-        return image;
+    public int getImage() {
+        return headerImage;
     }
+
+    public void setImage(int i) {headerImage = i;}
 
     public int getPrevious() {
         return previous;

@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import static android.R.attr.duration;
 
 public class FoamFlowChart extends AppCompatActivity implements View.OnClickListener {
     /*the aim of this class is to populate a list based on the assets we have.
@@ -18,6 +21,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     //layout that will link to xml layout to add buttons
     LinearLayout buttonHolder;
     TextView desc;
+    ImageView headerImage;
     int currentOptionNum = 4;
     int currentIndex = 0;
     Question[] masterChart;
@@ -32,6 +36,8 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
         buttonHolder = (LinearLayout)findViewById(R.id.buttonLayout);
         desc = (TextView)findViewById(R.id.description);
+        headerImage = (ImageView)findViewById(R.id.headerImage);
+        headerImage.setScaleType(ImageView.ScaleType.FIT_XY);
         /*
         Button test = new Button(this);
         test.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT ));
@@ -47,71 +53,6 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private void populateChart()
-    //This function creates the flowchart for all assets
-    //create each step in the flowchart and add it to the foam chart array
-    {
-        masterChart = new Question[100];//chart one to populate
-        //set the questions to each index
-
-        Question tempQ = new Question(); //for index
-//------------------------------------------------------------ Setup index 0
-        tempQ.setQuestionText("Is there excess foam? If so, what does it look like?");
-
-        //set the 4 possible options, they link to an index on the chart.
-        //set images by id
-        tempQ.setOp1(1);//pumice-like
-        //add button image.
-        tempQ.setOp1bImage(R.drawable.pmcbtn);
-        tempQ.setButton1Text("pumice-like");
-        tempQ.setOp2(2);//grey, thick slimmy
-        tempQ.setOp2bImage(R.drawable.slmybtn);
-        tempQ.setButton2Text("thick, slimmy");
-        tempQ.setOp3(3);//Dark brown, thick and scummt
-        tempQ.setButton3Text("Dark brown, thick and scummy");
-        tempQ.setOp3bImage(R.drawable.dkbrnthkbtn);
-        tempQ.setOp4(4);//bilowy, white
-        tempQ.setButton4Text("bilowy, white");
-        tempQ.setOp4bImage(R.drawable.whtblybtn);
-        tempQ.setOptionNums(4);
-
-        tempQ.image = new ImageView(this);
-        tempQ.image.setImageResource(R.drawable.logo);//put a picture
-
-        tempQ.setPrevious(-1);//at the start
-
-        masterChart[0] = tempQ;//add it to index 0 of the chart
-
-//--------------------------------------------------------------Setup index 1
-
-        tempQ = new Question();
-        tempQ.setQuestionText("Solids return from sludge processing. Try to reduce the solid return by improving the solids capture in sludge processing.");
-
-        tempQ.setOp1(-2);
-        tempQ.setButton1Text("");
-
-        tempQ.setOp2(-2);
-        tempQ.setOp2bImage(R.drawable.logo);
-        tempQ.setButton2Text("");
-        tempQ.setOp3(-2);
-        tempQ.setButton3Text("");
-        tempQ.setOp4(-2);
-        tempQ.setButton4Text("");
-        tempQ.setOptionNums(0);
-        tempQ.setPrevious(0);//at the start
-
-        tempQ.image = new ImageView(this);
-        tempQ.image.setImageResource(R.drawable.logo);//put a picture
-
-        masterChart[1] = tempQ;//add it to index 0 of the chart
-
-//-------------------------------------------------------------Setup index 2
-
-
-        //add the question as index 0 of the temp flowchart, then when all are done, set the flowchart
-        //as the flowchart for the asset.
-        //TODO: create flowcharts, with indices, to translate into the array.
-    }
 
     //this function will draw buttons to the screen depending on the number of options of the current question,
     //but for now it is going to draw the first question.
@@ -128,11 +69,12 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         //checks for Div/0 error
         if(currentOptionNum == 0)
         {
-            weightPerButton = 15;
+            weightPerButton = 5;
         }
         else
         {
             weightPerButton = weightOfButtons/(currentOptionNum +1);//includes go back button
+            //weightPerButton = 19;
         }
 
         p.weight = weightPerButton;
@@ -223,7 +165,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
             buttonHolder.addView(sp);
 
             test = new ImageButton(this);
-            p.weight = 10;
+            p.weight = 17;
             test.setId(100);//cannot be negative, so be high
             test.setAdjustViewBounds(true);//fixes the image scale bug
             test.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -242,7 +184,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         }
 
         //---- Regardless of options, create a back button.
-        p.weight = weightPerButton;
+        p.weight = 17;
         test = new ImageButton(this);//reset button data
         test.setId(200);//cannot be negative, so be high
         test.setAdjustViewBounds(true);//fixes the image scale bug
@@ -250,11 +192,6 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         test.setLayoutParams(p);
         test.setImageResource(R.drawable.backbtn);
         test.setOnClickListener(this);
-        //if we are at the start already...
-        if(masterChart[currentIndex].getPrevious() < 0)
-        {
-            test.setEnabled(false);
-        }
         buttonHolder.addView(test);
 
         //----End back button creation
@@ -263,6 +200,8 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     private void updateDesc(int index)
     {
         desc.setText(masterChart[index].getQuestionText());
+        //headerImage.setImageResource(masterChart[index].getImage());
+
     }
 
     @Override
@@ -333,7 +272,20 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
                 drawButtons();//reloads the screen
                 break;
             case 200://back button
+                if(currentIndex == 0)
+                {
+                    //create a toast message.
+                    Toast toast = Toast.makeText(this, "You are at the start...\nYou cannot go back.", Toast.LENGTH_LONG);
+                    toast.show();
+                    break;
+                }
                 currentIndex = masterChart[currentIndex].getPrevious();
+                removeButtons();
+                currentOptionNum = masterChart[currentIndex].getOptionNums();
+                drawButtons();
+                break;
+            case 100://restart button
+                currentIndex = 0;
                 removeButtons();
                 currentOptionNum = masterChart[currentIndex].getOptionNums();
                 drawButtons();
@@ -356,6 +308,141 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
             buttonHolder.removeView(findViewById(i));
 
         }
+    }
+
+    private void populateChart()
+    //This function creates the flowchart for all assets
+    //create each step in the flowchart and add it to the foam chart array
+    {
+        masterChart = new Question[100];//chart one to populate
+        //set the questions to each index
+
+        Question tempQ = new Question(); //for index
+//------------------------------------------------------------ Setup index 0
+        tempQ.setQuestionText("Welcome to the Excess Foam Troubleshooting section. What does the foam look like?");
+
+        //set the 4 possible options, they link to an index on the chart.
+        //set images by id
+        tempQ.setOp1(1);//pumice-like
+        //add button image.
+        tempQ.setOp1bImage(R.drawable.pmcbtn);
+        tempQ.setButton1Text("pumice-like");
+        tempQ.setOp2(2);//grey, thick slimmy
+        tempQ.setOp2bImage(R.drawable.slmybtn);
+        tempQ.setButton2Text("thick, slimmy");
+        tempQ.setOp3(3);//Dark brown, thick and scummt
+        tempQ.setButton3Text("Dark brown, thick and scummy");
+        tempQ.setOp3bImage(R.drawable.dkbrnthkbtn);
+        tempQ.setOp4(4);//bilowy, white
+        tempQ.setButton4Text("bilowy, white");
+        tempQ.setOp4bImage(R.drawable.whtblybtn);
+        tempQ.setOptionNums(4);
+
+        tempQ.setPrevious(-1);//at the start
+
+        masterChart[0] = tempQ;//add it to index 0 of the chart
+
+//--------------------------------------------------------------Setup index 1
+
+        tempQ = new Question();
+        tempQ.setQuestionText("Solids return from sludge processing. Try to reduce the solid return by improving the solids capture in sludge processing.");
+
+        tempQ.setOp1(-2);
+
+        tempQ.setOp2(-2);
+        tempQ.setOp3(-2);
+
+        tempQ.setOp4(-2);
+
+        tempQ.setOptionNums(0);
+        tempQ.setPrevious(0);//at the start
+
+        masterChart[1] = tempQ;//add it to index 1 of the chart
+
+//-------------------------------------------------------------Setup index 2
+        tempQ = new Question();
+        tempQ.setQuestionText("There may be a nutrient deficiency in the tank. Try adding nutrients, such as: \n1)NH3 or NO3 if (NH3 + NO2 + NO3) < 1 mg/L \n" +
+                "2) H3PO4 if PO4 < 0.5 mg/L");
+
+        tempQ.setOp1(-2);
+
+
+        tempQ.setOp2(-2);
+
+        tempQ.setOp3(-2);
+
+        tempQ.setOp4(-2);
+
+        tempQ.setOptionNums(0);
+        tempQ.setPrevious(0);//at the start
+
+        masterChart[2] = tempQ;//add it to index 2 of the chart
+
+//-------------------------------------------------------------Setup index 3
+
+        tempQ = new Question();
+        tempQ.setQuestionText("The sludge may be old. Using treatment pressure, try to decrease TSU by increasing the waste and then removing the foam from the system.");
+
+        tempQ.setOp1(-2);
+
+        tempQ.setOp2(-2);
+
+        tempQ.setOp3(-2);
+
+        tempQ.setOp4(-2);
+
+        tempQ.setOptionNums(0);
+        tempQ.setPrevious(0);//at the start
+
+        masterChart[3] = tempQ;//add it to index 3 of the chart
+
+//-------------------------------------------------------------Setup index 4
+        tempQ = new Question();
+        tempQ.setQuestionText("Try to gague the extent of the mixed liquor suspended solids (MLSS). Are they:");
+
+        tempQ.setOp1(5);//low
+        tempQ.setOp1bImage(R.drawable.lowmlss);
+        tempQ.setOp2(6);//normal
+        tempQ.setOp2bImage(R.drawable.normalmlss);
+        tempQ.setOp3(-2);
+
+        tempQ.setOp4(-2);
+
+        tempQ.setOptionNums(2);
+        tempQ.setPrevious(0);//at the start
+
+        masterChart[4] = tempQ;//add it to index 4 of the chart
+
+
+//-------------------------------------------------------------Setup index 5: low MLSS
+        tempQ = new Question();
+        tempQ.setQuestionText("If the sludge was found at startup, then it is likely young sludge. Using oxidative pressure, increase the TSU and decrease the waste.");
+
+        tempQ.setOp1(-2);
+        tempQ.setOp2(-2);
+        tempQ.setOp3(-2);
+
+        tempQ.setOp4(-2);
+
+        tempQ.setOptionNums(0);
+        tempQ.setPrevious(4);//at the start
+
+        masterChart[5] = tempQ;//add it to index 5 of the chart
+
+//-------------------------------------------------------------Setup index 5: normal MLSS
+        tempQ = new Question();
+        tempQ.setQuestionText("The cause may be high surfactant food. Using oxidative pressure, increase the TSU and SOTa by decreasing waste and return.");
+
+        tempQ.setOp1(-2);
+        tempQ.setOp2(-2);
+        tempQ.setOp3(-2);
+
+        tempQ.setOp4(-2);
+
+        tempQ.setOptionNums(0);
+        tempQ.setPrevious(4);//at the start
+
+        masterChart[6] = tempQ;//add it to index 5 of the chart
     }
 
 

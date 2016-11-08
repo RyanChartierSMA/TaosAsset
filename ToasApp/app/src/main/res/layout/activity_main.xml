@@ -33,12 +33,12 @@
         android:layout_weight="2"
         />
 
-    <Button
+    <ImageButton
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:text="Troubleshoot"
+        android:scaleType="fitXY"
+        android:src="@drawable/exfoamprot"
         android:id="@+id/trouble"
-        android:textAllCaps="false"
         android:layout_weight = "13"/>
 
     <Space
@@ -47,13 +47,13 @@
         android:layout_weight="1"
         />
 
-    <Button
+    <ImageButton
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:text="QR Code Look-up"
-        android:id="@+id/bt2"
-        android:textAllCaps="false"
+        android:id="@+id/qrbtn"
         android:enabled="false"
+        android:scaleType="fitXY"
+        android:src="@drawable/qrcode"
         android:layout_weight = "13"
         />
     <Space

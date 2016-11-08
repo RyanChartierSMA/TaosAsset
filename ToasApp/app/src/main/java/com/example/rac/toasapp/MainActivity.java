@@ -5,14 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
 //Create the buttons for Activity_main.xml
 
-    Button troubleShootbtn;
-    Button bt2;
-    Button bt3;
+    ImageButton troubleShootbtn, qrBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,24 +20,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         //initialize buttons
-        troubleShootbtn = (Button)findViewById(R.id.trouble);
-        bt2 = (Button)findViewById(R.id.bt2);
+        troubleShootbtn = (ImageButton)findViewById(R.id.trouble);
+        qrBtn = (ImageButton)findViewById(R.id.qrbtn);
 
         //Assign the listeners to each button
         troubleShootbtn.setOnClickListener(this);
+        qrBtn.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
 
-        Button pressedButton = (Button)v;
-        switch(pressedButton.getText().toString()){
+        ImageButton pressedButton = (ImageButton)v;
+        switch(pressedButton.getId()){
 
-            case "Troubleshoot":
+            case R.id.trouble:
                 //Open the next window - start new intent
                 Intent assetSelectionWindow = new Intent(MainActivity.this, FoamFlowChart.class);
                 startActivity(assetSelectionWindow);
+                break;
+            case R.id.qrbtn:
+                Toast toast = Toast.makeText(this, "Not yet implemented.", Toast.LENGTH_LONG);
+                toast.show();
                 break;
 
         }

@@ -7,5 +7,6 @@
     <string name = "option4">op4</string>
     <string name = "option5">op5</string>
     <string name = "option6">op6</string>
+    <string name = "NH3">NH<sub>3</sub>".</string>
     <string name="action_settings">Settings</string>
 </resources>
