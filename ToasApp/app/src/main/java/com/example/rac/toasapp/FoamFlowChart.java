@@ -73,7 +73,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         //checks for Div/0 error
         if(currentOptionNum == 0)
         {
-            p.weight = 25;
+            p.weight = 15;
         }
         else
         {
@@ -138,7 +138,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
                 //all the neccessary layout-adding stuff. It adds the button to the layout.
                 test.setEnabled(enabledButton);
                 test.setOnClickListener(this);
-                test.setAdjustViewBounds(true);//fixes the image scale bug
+                test.setAdjustViewBounds(true);//must come before sdaletype, as it overrides the scaletype
                 test.setScaleType(ImageButton.ScaleType.FIT_XY);
                 //test.setBackgroundColor(Color.CYAN);
 
