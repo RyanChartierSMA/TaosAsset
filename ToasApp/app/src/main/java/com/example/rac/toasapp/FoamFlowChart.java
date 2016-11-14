@@ -1,9 +1,11 @@
 package com.example.rac.toasapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,7 +29,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     int currentOptionNum = 4;
     int currentIndex = 0;
     Question[] masterChart;
-    final int weightOfButtons = 75;//used to make buttons fit nicer.
+    final int weightOfButtons = 66;//used to make buttons fit nicer.
                                    //image, textview, and one space take up 30.
     float weightPerButton;//assigned during button creation
 //------DrawButton() variables
@@ -49,6 +51,9 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         desc = (TextView)findViewById(R.id.description);
         headerImage = (ImageView)findViewById(R.id.headerImage);
         headerImage.setScaleType(ImageView.ScaleType.FIT_XY);
+        headerImage.setAdjustViewBounds(true);
+
+        p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
 
         populateChart();
         drawButtons();//called after each button click, but here to force an initial draw
@@ -68,11 +73,11 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         //checks for Div/0 error
         if(currentOptionNum == 0)
         {
-            weightPerButton = 5;
+            p.weight = 25;
         }
         else
         {
-            weightPerButton = weightOfButtons/(currentOptionNum);//includes go back button
+            p.weight = weightOfButtons/(currentOptionNum+2);//includes go back button/prev
             //weightPerButton = 19;
         }
 
@@ -83,8 +88,6 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
                 enabledButton = true;//used for enable/disable button based on -2 index
                 test = new ImageButton(this);
                 //test.setLayoutParams();
-                test.setScaleType(ImageView.ScaleType.FIT_XY);
-                test.setAdjustViewBounds(true);//fixes the image scale bug
                 tempName = key + i;
 
                 //assigns an id to the button depending on which button is created
@@ -135,6 +138,11 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
                 //all the neccessary layout-adding stuff. It adds the button to the layout.
                 test.setEnabled(enabledButton);
                 test.setOnClickListener(this);
+                test.setAdjustViewBounds(true);//fixes the image scale bug
+                test.setScaleType(ImageButton.ScaleType.FIT_XY);
+                //test.setBackgroundColor(Color.CYAN);
+
+                test.setLayoutParams(p);
                 buttonHolder.addView(test);
             }
 
@@ -150,9 +158,10 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
             test = new ImageButton(this);
             test.setId(100);//cannot be negative, so be high
             test.setAdjustViewBounds(true);//fixes the image scale bug
-            test.setScaleType(ImageView.ScaleType.FIT_XY);
+            test.setScaleType(ImageButton.ScaleType.FIT_XY);
             test.setImageResource(R.drawable.restartbutton);
             test.setOnClickListener(this);
+            test.setLayoutParams(p);
             buttonHolder.addView(test);
         }
         //insert a space here for formatting niceness, only if there are options.
@@ -161,6 +170,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
             Button b = new Button(this);
             b.setId(300);
             b.setVisibility(View.INVISIBLE);
+            b.setLayoutParams(p);
             buttonHolder.addView(b);
         }
 
@@ -168,9 +178,10 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         test = new ImageButton(this);//reset button data
         test.setId(200);//cannot be negative, so be high
         test.setAdjustViewBounds(true);//fixes the image scale bug
-        test.setScaleType(ImageView.ScaleType.FIT_XY);
+        test.setScaleType(ImageButton.ScaleType.FIT_XY);
         test.setImageResource(R.drawable.backbtn);
         test.setOnClickListener(this);
+        test.setLayoutParams(p);
         buttonHolder.addView(test);
 
         //----End back button creation
