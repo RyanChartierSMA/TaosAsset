@@ -74,11 +74,13 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         if(currentOptionNum == 0)
         {
             p.weight = 15;
+
         }
         else
         {
             p.weight = weightOfButtons/(currentOptionNum+2);//includes go back button/prev
             //weightPerButton = 19;
+
         }
 
         if (currentOptionNum != 0) {
@@ -138,7 +140,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
                 //all the neccessary layout-adding stuff. It adds the button to the layout.
                 test.setEnabled(enabledButton);
                 test.setOnClickListener(this);
-                test.setAdjustViewBounds(true);//must come before sdaletype, as it overrides the scaletype
+                test.setAdjustViewBounds(true);//must come before scaletype, as it overrides the scaletype
                 test.setScaleType(ImageButton.ScaleType.FIT_XY);
                 //test.setBackgroundColor(Color.CYAN);
 
