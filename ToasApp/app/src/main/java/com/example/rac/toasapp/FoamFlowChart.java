@@ -21,6 +21,8 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
     Use a local database to load this information
     An array will do fine for now.
     Can support up to 8 options per question
+
+    11/14/16: TODO: remake the buttons, but make them the same size. this may fix the scaling issue.
     */
     //layout that will link to xml layout to add buttons
     LinearLayout buttonHolder;
@@ -54,6 +56,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         headerImage.setAdjustViewBounds(true);
 
         p = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        p.weight = 1;
 
         populateChart();
         drawButtons();//called after each button click, but here to force an initial draw
@@ -70,18 +73,7 @@ public class FoamFlowChart extends AppCompatActivity implements View.OnClickList
         key = "op";
         currentOptionNum = masterChart[currentIndex].getOptionNums();
         test = new ImageButton(this);
-        //checks for Div/0 error
-        if(currentOptionNum == 0)
-        {
-            p.weight = 15;
 
-        }
-        else
-        {
-            p.weight = weightOfButtons/(currentOptionNum+2);//includes go back button/prev
-            //weightPerButton = 19;
-
-        }
 
         if (currentOptionNum != 0) {
             //assigns the buttons an equal weight, cumulative to 60.
