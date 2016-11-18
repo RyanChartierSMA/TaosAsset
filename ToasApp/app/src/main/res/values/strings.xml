@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Taos Asset Prototype</string>
     <string name="title_activity_asset_selection">Excess Foam</string>
-    <string name = "option1">op1</string>
-    <string name = "option2">op2</string>
-    <string name = "option3">op3</string>
-    <string name = "option4">op4</string>
-    <string name = "option5">op5</string>
-    <string name = "option6">op6</string>
-    <string name = "NH3">NH<sub>3</sub>".</string>
+    <string name="option1">op1</string>
+    <string name="option2">op2</string>
+    <string name="option3">op3</string>
+    <string name="option4">op4</string>
+    <string name="option5">op5</string>
+    <string name="option6">op6</string>
+    <string name="NH3">NH<sub>3</sub>".</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_facility">Map</string>
 </resources>

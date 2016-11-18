@@ -41,8 +41,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(assetSelectionWindow);
                 break;
             case R.id.qrbtn:
-                Toast toast = Toast.makeText(this, "Not yet implemented.", Toast.LENGTH_LONG);
-                toast.show();
+                //Toast toast = Toast.makeText(this, "Not yet implemented.", Toast.LENGTH_LONG);
+                //toast.show();
+                Intent assetSelectionWindow1 = new Intent(MainActivity.this, FacilityActivity.class);
+                startActivity(assetSelectionWindow1);
                 break;
 
         }
